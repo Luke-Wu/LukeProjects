@@ -1,0 +1,87 @@
+在一个字符串中，获取以大写字母开头的，长度最长的子字符串。要求此子字符串必须以大写字母开头，后面跟着大写或小写字母，返回此子字符串的长度
+
+比如 aObacdA123bcdHab, 获取的子字符串应该是 ObacdA, 长度为6
+aOb123Hab，获取的子字符串应该是Hab,长度为3
+代码如下：
+
+  class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine(solution("aOb123Hab"));
+
+        }
+
+
+        public static int solution(string S)
+        {
+
+            char[] charS = S.ToCharArray();
+
+            int maxLength = GetMaxLength(0, charS);
+
+
+            for (int i = 1; i < charS.Length; i++)
+            {
+
+                int poLength = GetMaxLength(i, charS);
+                if (poLength > maxLength)
+                {
+                    maxLength = poLength;
+                }
+
+
+            }
+
+            return maxLength;
+
+        }
+
+
+
+
+
+        public static int GetMaxLength(int pos, char[] charS)
+        {
+            int   count = -1;
+            if (charS[pos] >= 'A' && charS[pos] <= 'Z')
+            {
+                count = 1;
+                for (int i = pos + 1; i < charS.Length; i++)
+                {
+                    if ((charS[i] >= 'a' && charS[i] <= 'z') || (charS[i] >= 'A' && charS[i] <= 'Z'))
+                    {
+                        count++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+
+
+                }
+
+
+
+            }
+          
+
+            return count;
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+    }
