@@ -1,0 +1,51 @@
+获取两个整数的交叉值，比如 A = 26, B = 345, 则返回 23645    
+A = 25, B = 76, 则返回 2756
+A= 234, B = 56  则返回 25364
+如果结果大于 100000000, 则返回 -1
+
+代码如下:
+
+    class Class1
+    {
+        public int solution(int A, int B)
+        {
+            // write your code in C# 6.0 with .NET 4.5 (Mono)
+
+            char[] aArr = A.ToString().ToCharArray();
+            char[] bArr = B.ToString().ToCharArray();
+            StringBuilder s = new StringBuilder();
+
+            if (aArr.Length >= bArr.Length)
+            {
+                for (int i = 0; i < aArr.Length; i++)
+                {
+                    s.Append(aArr[i]);
+                    if (i < bArr.Length)
+                        s.Append(bArr[i]);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < bArr.Length; i++)
+                {
+
+                    if (i < aArr.Length)
+                        s.Append(aArr[i]);
+                    s.Append(bArr[i]);
+
+                }
+            }
+            int intResult = Convert.ToInt32(s);
+            if (intResult > 100000000)
+                return -1;
+            else
+                return intResult;
+
+              
+
+    }
+
+    
+
+
+    }
