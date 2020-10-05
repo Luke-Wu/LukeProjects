@@ -1,0 +1,138 @@
+public class ValidateArguments
+    {
+
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello World!");
+        }
+        public int Validate(string[] args)
+        {
+          
+            var notallValid = false;
+
+            if (args.Length > 5 || args.Length == 0)
+            {
+                return -1;
+            }
+
+            if (args[0].ToLower() != "--name" && args[0].ToLower() != "--count" && args[0].ToLower() != "--help")
+            {
+                return -1;
+            }
+
+
+            notallValid = args.Any(a => !validateString(a));
+            if (notallValid)
+            {
+                return -1;
+            }
+           
+
+            var isValid = true;
+            for (var i = 0; i < args.Length; i++)
+            {
+                if (args[i].ToLower() == "--name")
+                {
+                    if ((i != args.Length - 1) && (args[i + 1].Length >= 3 && args[i + 1].Length <= 10))
+                    {
+                        isValid = true;
+                    }
+                    else
+                    {
+                        isValid = false;
+                    }
+                  
+                }
+                if (args[i].ToLower() == "--count")
+                {
+                    if ((i != args.Length - 1) && (int.TryParse(args[i + 1], out int resultStr)))
+                    {
+                        if (10 <= resultStr && resultStr <= 100)
+                        {
+                            isValid = true;
+                        }
+                        else
+                        {
+                            isValid = false;
+                        }
+                    }
+                    else
+                    {
+                        isValid = false;
+                    }
+                  
+                }
+                if (args[i].ToLower() == "--help")
+                {
+                    if (i == args.Length - 1)
+                    {
+                        isValid = true;
+                    }
+                    else
+                    {
+                        if (args[i + 1].ToLower() == "--name" || args[i + 1].ToLower() == "--count")
+                        {
+                            isValid = true;
+                        }
+                        else
+                        {
+                            isValid = false;
+                        }
+                    }
+                }
+
+                
+            }
+
+            if (isValid)
+            {
+                if (args.Any(a => a.ToLower() == "--help"))
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return -1;
+            }
+
+         
+
+        }
+
+
+
+
+        private bool validateString(string arg)
+        {
+            var isValid = false;
+            if (arg.ToLower() == "--help" || arg.ToLower() == "--name" || arg.ToLower() == "--count")
+            {
+                isValid = true;
+            }
+            else
+            {
+                if (int.TryParse(arg, out int resultStr))
+                {
+                    if (10 <= resultStr && resultStr <= 100)
+                    {
+                        isValid = true;
+                    }
+                }
+                if (arg.Length >= 3 && arg.Length <= 10)
+                {
+                    isValid = true;
+                }
+            }
+
+            return isValid;
+        }
+
+
+
+
+    }
